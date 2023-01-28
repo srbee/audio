@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.5.0/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.5.0/addons/p5.sound.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="utf-8" />
+    
+</head>
+  <body>
+    <main>
+    </main>
+    <script src="sketch.js"></script>
+    
+    <script>
+  // Set up audio context and variables
+  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  let source;
+  let stream;
+
+  // Request microphone access
+  navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+    .then(function(micStream) {
+      stream = micStream;
+      source = audioCtx.createMediaStreamSource(stream);
+
+      // Create a biquad filter
+      const biquadFilter = audioCtx.createBiquadFilter();
+      biquadFilter.type = "bandpass";
+      biquadFilter.frequency.value = 200;
+      biquadFilter.Q.value = 0;
+
+      // Connect the microphone to the filter
+      source.connect(biquadFilter);
+
+      // Create a gain node
+      const gainNode = audioCtx.createGain();
+      gainNode.gain.value = 1;
+
+      // Connect the filter to the gain node
+      biquadFilter.connect(gainNode);
+
+      // Connect the gain node to the destination
+      gainNode.connect(audioCtx.destination);
+
+    })
+    .catch(function(err) {
+      console.log("The following error occurred: " + err);
+    });
+
+</script>
+    <h1> Realtime Audio Processing in JS </h1>
+    I submitted a request like the following to ChatGPT to genertate this program:
+    <p id="p1"> 
+      <h4>
+      Create an HTML file and add JS code in it to pickup audio from the microphone in real time and implement a bandpass filter with lower cutoff frequency of 200Hz and upper cutoff frequency of 2000 Hz and output it on the speaker. </p>
+    </h4>
+    <p> And it worked like magic in the first attempt itself. </p>
+    </p> I was expecting many hours of debugging to remove all sorts of syntax errors and what have you! </p>
+    
+    
+    <p>It needs to be checked whether there is really a bandpass filtering effect or it is just garbage in garbage out.  </p>
+<h3> Ensure that your micrphone and speaker are not disabled !</h3>
+
+<p id="code"> 
+  // Set up audio context and variables 
+  <br>
+  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  <br>
+  let source;
+  <br>
+  let stream;
+  <br>
+
+  // Request microphone access
+  <br>
+  navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+  <br>
+    .then(function(micStream) {
+  <br>
+      stream = micStream;
+  <br>
+      source = audioCtx.createMediaStreamSource(stream);
+  <br>
+
+      // Create a biquad filter
+  <br>
+      const biquadFilter = audioCtx.createBiquadFilter();
+  <br>
+      biquadFilter.type = "bandpass";
+  <br>
+      biquadFilter.frequency.value = 200;
+  <br>
+      biquadFilter.Q.value = 0;
+  <br>
+
+      // Connect the microphone to the filter
+  <br>
+      source.connect(biquadFilter);
+  <br>
+
+      // Create a gain node
+  <br>
+      const gainNode = audioCtx.createGain();
+  <br>
+      gainNode.gain.value = 1;
+  <br>
+
+      // Connect the filter to the gain node
+  <br>
+      biquadFilter.connect(gainNode);
+  <br>
+
+      // Connect the gain node to the destination
+  <br>
+      gainNode.connect(audioCtx.destination);
+  <br>
+
+    })
+  <br>
+    .catch(function(err) {
+  <br>
+      console.log("The following error occurred: " + err);
+  <br>
+    });
+  <br>
+
+</p>
+
+
+</body>
+</html>
+
+ 

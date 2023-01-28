@@ -1,0 +1,23 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  
+
+  background-color: coral;
+  
+}
+
+h3,h4{
+  background-color: yellow;
+}
+
+
+
+
+#p1{
+  background-color: yellow;
+}
+
+#code{
+  background-color: yellow;
+}
